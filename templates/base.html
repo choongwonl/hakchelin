@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+    {% load static %}
+<head>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- font -->
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Gothic|Stylish&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{% static '/css/style.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <title >학슐랭 가이드 {% block title %}{% endblock %}</title>
+    
+{% block head %}{% endblock%}
+</head>
+<body>
+<div class="container-fluid mx-0 px-0 h-100">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand dohyeon" href="/home">학슐랭 가이드</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a href="/home" class="active nav-link ">홈</a></li>
+        <li class="nav-item"><a href="/home/today/" class="active nav-link ">오늘의 학식 리뷰</a></li>
+        <li class="nav-item"><a href="/home/reviews/?type=all" class="active nav-link ">지난 학식 리뷰</a></li>
+        <li class="nav-item"><a href="/home/ranking/" class="active nav-link ">유저 랭킹</a></li>
+      </ul>
+      <ul class="navbar-nav mr-0">
+          <div class="dropdown-divider"></div>
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a href="#" class="nav-link"><span class="badge badge-dark">{{ user.get_lvl }}</span> {{ user.name }} <span><i class="text-warning fas fa-coins"></i> {{user.point}}</span></a></li>
+          <li class="nav-item"><a href="/home/mypage/" class="nav-link">마이페이지</a></li>
+          <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">로그아웃</a></li>
+        {% else %}
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">로그인</a></li>
+          <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">회원가입</a></li>
+        {% endif %}
+      </ul>
+
+  </div>
+  </nav>
+    <!-- <div class="col-md-8 offset-md-2 mb-5">
+      <div class="mt-2 mx-2"> -->
+        {% block content %}
+        {% endblock %}
+      <!-- </div>
+    </div> -->
+  </div>
+
+</body>
+
+
+<!-- <footer class="page-footer font-small bg-dark pt-4">
+  <div class="container-fluid text-center text-white text-md-left">
+    <div class="row">
+      <div class="col-md-6 mt-md-0 mt-3">
+        <p class="text-uppercase">문의: mail@hakchelin.com</p>
+        <p>가나다라</p>
+      
+      </div>
+
+    </div>
+  </div>
+  <div class="footer-copyright text-white text-center py-3">© 2019 aclee &#183; All Rights Reserved
+  </div>
+</footer> -->
+
+<footer class="blog-footer">
+    <p>
+      <div><i class="fas fa-envelope"></i> mail@hakchelin.com</div> 
+    </p>
+    <p>© 2019 aclee &#183; All Rights Reserved</p>
+  </footer>
+
+</html>

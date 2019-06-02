@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %} - 오늘의 학식{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2 class="text-center mt-5 mb-2" id="today">오늘의 학식</h2>
+{% if menus|length == 0 %}
+<p class="text-center text-danger">오늘의 메뉴가 아직 업데이트되지 않았습니다.</p>
+<form method="post">
+    {% csrf_token %}
+    <button class="btn btn-primary" type="submit" name="run_script">가져오기</button>
+</form>
+{% else %}
+<nav>
+    <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-item nav-link active" id="nav-all-tab" data-toggle="tab" href="#nav-all" role="tab" aria-controls="nav-all" aria-selected="true">식당별</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-item nav-link" id="nav-star-tab" data-toggle="tab" href="#nav-star" role="tab" aria-controls="nav-star" aria-selected="false"><i class="fas fa-star"></i>점순</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+        <nav class="mt-2">
+            <ul class="nav nav-pills" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-allmenu-tab" data-toggle="tab" href="#nav-allmenu" role="tab" aria-controls="nav-allmenu" aria-selected="true">전체</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-haksang-tab" data-toggle="tab" href="#nav-haksang" role="tab" aria-controls="nav-haksang" aria-selected="true">학생식당</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-kyogikwon-tab" data-toggle="tab" href="#nav-kyogikwon" role="tab" aria-controls="nav-kyogikwon" aria-selected="false">교직원식당</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-sarang-tab" data-toggle="tab" href="#nav-sarang" role="tab" aria-controls="nav-sarang" aria-selected="false">사랑방</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-newkyogikwon-tab" data-toggle="tab" href="#nav-newkyogikwon" role="tab" aria-controls="nav-newkyogikwon" aria-selected="false">신교직원식당</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-newhaksang-tab" data-toggle="tab" href="#nav-newhaksang" role="tab" aria-controls="nav-newhaksang" aria-selected="false">신학생식당</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-hangwon-tab" data-toggle="tab" href="#nav-hangwon" role="tab" aria-controls="nav-hangwon" aria-selected="false">행원파크</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-onedorm-tab" data-toggle="tab" href="#nav-onedorm" role="tab" aria-controls="nav-onedorm" aria-selected="false">제1생활관식당</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" id="nav-twodorm-tab" data-toggle="tab" href="#nav-twodorm" role="tab" aria-controls="nav-twodorm" aria-selected="false">제2생활관식당</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+
+            <div class="tab-pane fade show active" id="nav-allmenu" role="tabpanel" aria-labelledby="nav-allmenu-tab">
+                {% for menu in menus %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}
+            </div>
+            <div class="tab-pane fade show" id="nav-haksang" role="tabpanel" aria-labelledby="nav-haksang-tab">
+                {% if haksang|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in haksang %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="nav-kyogikwon" role="tabpanel" aria-labelledby="nav-kyogikwon-tab">
+                {% if kyogikwon|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in kyogikwon %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}   
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="nav-sarang" role="tabpanel" aria-labelledby="nav-sarang-tab">
+                {% if sarang|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in sarang %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}  
+                {% endif %} 
+            </div>
+            <div class="tab-pane fade" id="nav-newkyogikwon" role="tabpanel" aria-labelledby="nav-newkyogikwon-tab">
+                {% if newkyogikwon|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in newkyogikwon %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}   
+                {% endif %}
+            </div>
+            <div class="tab-pane fade" id="nav-newhaksang" role="tabpanel" aria-labelledby="nav-newhaksang-tab">
+                {% if newhaksang|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in newhaksang %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %}  
+                {% endif %} 
+            </div>
+            <div class="tab-pane fade" id="nav-hangwon" role="tabpanel" aria-labelledby="nav-hangwon-tab">
+                {% if hangwon|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in hangwon %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %} 
+                {% endif %}  
+            </div>
+            <div class="tab-pane fade" id="nav-onedorm" role="tabpanel" aria-labelledby="nav-hangwon-tab">
+                {% if onedorm|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in onedorm %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %} 
+                {% endif %}  
+            </div>
+            <div class="tab-pane fade" id="nav-twodorm" role="tabpanel" aria-labelledby="nav-hangwon-tab">
+                {% if twodorm|length == 0 %}
+                    <p class="text-center text-danger">해당 식당에 메뉴가 없습니다</p>
+                {% else %}
+                {% for menu in twodorm %}
+                    {% include 'home/menulists.html' %}
+                {% endfor %} 
+                {% endif %}  
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade show" id="nav-star" role="tabpanel" aria-labelledby="nav-star-tab">
+        {% for menu in starmenus %}
+            {% include 'home/menulists.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+</div>
+{% endblock %}
+

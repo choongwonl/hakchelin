@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}- 회원가입{% endblock %}
+
+{% block content %}
+<div class="container mb-2">
+        <h2 class="text-center mt-5 mb-2">회원가입</h2>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3 ">
+        <div class="mt-2 mx-2">
+            <div class="alert alert-info">회원 정보를 입력해 주세요.</div>
+            <form action="" method="post">
+                {{form.as_p}}
+                {% csrf_token %}
+                <input class="btn btn-primary" type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

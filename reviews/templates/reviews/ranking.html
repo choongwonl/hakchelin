@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} - 유저 랭킹{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-5 mb-2">유저 랭킹</h2>
+    <div class="text-center mb-2">
+        <div>포인트 누적 순위입니다.</div> 
+        포인트 획득에 대해서는 <a href="/home/howtoearnpoint/">여기</a>를 참고하세요.
+    </div>
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">순위</th>
+        <th scope="col">닉네임</th>
+        <th scope="col">누적포인트</th>
+        <th scope="col">리뷰작성수</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usr in users %}
+        {% if usr.rank == 1 %}
+        <th scope="row"><i class="fas fa-crown text-warning"></i></th>
+        {% elif usr.rank == 2 %}
+        <th scope="row"><i class="fas fa-crown" style="color:lightgray"></i></th>
+        {% elif usr.rank == 3 %}    
+        <th scope="row"><i class="fas fa-crown" style="color:brown"></i></th>
+        {% else %}
+        <th scope="row">{{ usr.rank }}</th>
+        {% endif %}
+        <td><span class="badge badge-dark">lv.{{ usr.lvl }}</span> {{ usr.name }}</td>
+        <td>{{ usr.point }}p</td>
+        <td>{{ usr.review_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if users.has_other_pages %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    {% if users.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+    {% for i in users.paginator.page_range %}
+      {% if users.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item"><span class="page-link" >&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+</div>
+{% endblock %}
+

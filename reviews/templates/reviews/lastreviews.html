@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %} - 지난 리뷰{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-5 mb-2">지난 리뷰</h2>
+    <div class="text-center mb-2">
+            <div>작성된 리뷰 입니다</div> 
+            <div>각 항목을 클릭하여 상세 후기를 읽을 수 있습니다.</div>
+            <div class="text-danger">검색기능은 준비중입니다.</div>
+        </div>
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">날짜</th>
+            <th scope="col">메뉴</th>
+            <th scope="col">닉네임</th>
+            <th scope="col">별점</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in reviews %}
+            <tr  data-toggle="collapse" data-target="#rid{{review.rid}}" aria-expanded="false">
+            <td>{{ review.mid.get_date_str }}</td>
+            <td>{{ review.mid.title }}</td>
+            <td>{{ review.author.name }}</td>
+            <td>
+                {% if review.star == 0 %}
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                {% elif review.star == 1%}
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                {% elif review.star == 2%}
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                {% elif review.star == 3%}
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                {% elif review.star == 4%}
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning far fa-star"></i>
+                {% elif review.star == 5 %}
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                    <i class="text-warning fas fa-star"></i>
+                {% endif %}
+            </td>
+            </tr>
+            <tr class="collapse" id="rid{{review.rid}}">
+                {% if review.photo != 'photos/no_image.png' %}    
+                <td colspan="1">
+                    <img src="{{ review.photo.url }}" alt="" style="max-height: 200px;">
+                </td>
+                <td colspan="3">{{ review.comment }}</td>
+                {% else %}
+                <td colspan="4">{{ review.comment }}</td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if reviews.has_other_pages %}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if reviews.has_previous %}
+          <li class="page-item"><a class="page-link" href="?type=all&page={{ reviews.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        {% for i in reviews.paginator.page_range %}
+          {% if reviews.number == i %}
+            <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?type=all&page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if reviews.has_next %}
+          <li class="page-item"><a class="page-link" href="?type=all&page={{ reviews.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="page-item"><span class="page-link" >&raquo;</span></li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}
+

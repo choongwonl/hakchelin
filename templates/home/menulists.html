@@ -1,0 +1,23 @@
+
+  <div class="list-group my-1 mx-2">
+        <a href="/home/detail/?date={{menu.get_date}}&res={{menu.get_res}}&menu={{menu.get_menunum}}" class="list-group-item list-group-item-action">
+        <div class="row mx-2">
+            <div class="col-md-7">
+                <h6 class="list-group-item-heading mt-2">{{menu.title}}</h6>
+                <p class="list-group-item-text"><small>{{menu.location}} | {{menu.price}}원</small></p>
+            </div>
+            <div class="col-md-5 m-auto">
+                    {% if menu.review_count == 0 %}
+                    <small class="text-secondary"><i class="fas fa-star"></i> {{ menu.avg }}</small>
+                    <small class="text-secondary">첫번째 리뷰를 남겨주세요!</small>
+                    {% else %}
+                    <small class="text-danger"><i class="fas fa-star"></i> {{ menu.avg }}</small>
+                    <small>리뷰 {{ menu.review_count }}</small>
+                    
+                    {% endif %}                    
+            </div>
+            
+        </div>
+    </a>
+    </div>
+

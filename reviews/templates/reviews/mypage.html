@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} - 마이페이지{% endblock %}
+
+{% block content %}
+<div class="container">
+<h2 class="text-center mt-5 mb-2">마이페이지</h2>
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text text-center">내가 작성한 리뷰</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a type="button" href="/home/myreviews/" class="btn btn-dark btn-block">보기</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <p class="card-text text-center">내 정보 수정</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="button" class="btn btn-dark btn-block" disabled>준비중입니다 <i class="far fa-smile"></i></button>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text text-center">내 포인트 관리 ({{ user.point }}p)</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="button" class="btn btn-dark btn-block" disabled>준비중입니다 <i class="far fa-smile"></i></button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

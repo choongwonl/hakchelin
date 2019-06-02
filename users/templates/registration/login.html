@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}- 로그인{% endblock %}
+
+{% block content %}
+<div class="container mb-2">
+        <h2 class="text-center mt-5 mb-2">로그인</h2>
+
+<div class="row">
+        <div class="col-md-6 offset-md-3 ">
+        <div class="mt-2 mx-2">
+            <div class="alert alert-info">로그인 정보를 입력해 주세요.</div>
+            <form class="form-group" action="" method="post">
+                {% if form.non_field_errors %}
+                    <p class="text-danger">아이디와 비밀번호를 확인해주세요.</p>
+                {% endif %}
+
+                <div style="margin-bottom: 25px" class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-user"></i></div>
+                    </div>
+                    <input id="id_username" type="text" class="form-control" name="username" value="" placeholder="아이디 (이메일 주소)">                                        
+                </div>
+            
+        <div style="margin-bottom: 25px" class="input-group">
+                <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                    </div>
+                    <input id="id_password" type="password" class="form-control" name="password" placeholder="비밀번호">
+                </div>
+                
+        <!-- <div class="input-group">
+                  <div class="checkbox">
+                    <label>
+                      <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                    </label>
+                  </div>
+                </div> -->
+
+                {% csrf_token %}
+            <div style="margin-top:10px" class="form-group">
+                <div class="controls">
+                    <input class="btn btn-primary" type="submit" value="로그인">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div>
+                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                        회원이 아니신가요? 
+                    <a href="../register/">
+                        회원가입
+                    </a>
+                    해주세요.
+                    </div>
+                </div>
+            </div>    
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

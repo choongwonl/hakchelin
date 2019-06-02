@@ -1,0 +1,32 @@
+.stylish {
+    font-family: 'Stylish', sans-serif;
+  }
+.nanum {
+font-family: 'Nanum Gothic', sans-serif;
+}
+.dohyeon {
+font-family: 'Do Hyeon', sans-serif;
+}
+
+html {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Do Hyeon', sans-serif !important;
+}
+
+.blog-footer {
+  padding: 2.5rem 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+.txt-shadow {
+  text-shadow: 2px 2px 2px black
+}

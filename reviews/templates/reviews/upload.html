@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}
+- Upload
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h5>{{ menu.title }}</h5>
+        <div>{{ menu.location }} | {{ menu.price }}원</div>
+    </div>
+
+<div class="row px-2">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 panel panel-default">
+        <form action="" method="post" enctype="multipart/form-data">
+                
+                <div class="input-group my-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">별점</span>
+                    </div>
+                <select class="form-control form-control-lg" name="star">
+                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="3">&#9733;&#9733;&#9733;</option>
+                    <option value="2">&#9733;&#9733;</option>
+                    <option value="1">&#9733;</option>
+                </select>   
+                </div>
+
+
+                <!-- <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                    </div>
+                    <div class="custom-file">
+                        <input class="form-control" type="file" id="inputGroupFile01" accept="image/*" aria-describedby="inputGroupFileAddon01" name="photo">
+                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                    </div>
+                    </div> -->
+                    
+
+                <div class="input-group my-1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">후기</span>
+                    </div>
+                    <textarea class="form-control" aria-label="With textarea" name="comment" rows="5" placeholder="10자 이상 작성해 주세요"></textarea>
+                    </div> 
+                    
+                    <div class="my-1">
+                        사진 업로드 시
+                            <span class="badge badge-warning">+50p</span>
+                            <input type="file" name="photo" accept="image/*" id="id_photo">
+                            
+                    </div>
+                
+            {% csrf_token %}
+            <input type="submit" class="btn btn-block btn-primary" value="제출">
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</div>
+{% endblock %}

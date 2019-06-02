@@ -1,0 +1,23 @@
+                    {% for k, v in stars.items %}
+                        {% if k == menu.mid %}
+                        <div> {{ v.3 }} <small> / </small> 5 </div>
+                        {% with ''|center:v.0 as range %}
+                        {% for _ in range %}
+                            <i class="text-warning fas fa-star"></i>
+                        {% endfor %}
+                        {% endwith %}
+
+                        {% with ''|center:v.1 as range %}
+                        {% for _ in range %}
+                            <i class="text-warning fas fa-star-half-alt"></i>
+                        {% endfor %}
+                        {% endwith %}
+
+
+                        {% with ''|center:v.2 as range %}
+                        {% for _ in range %}
+                            <i class="text-warning far fa-star"></i>
+                        {% endfor %}
+                        {% endwith %}
+                        {% endif %}
+                    {% endfor%}

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block title %}
+    메뉴 #{{ mid }} 상세보기
+{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+    <img src="{{ menu.photo }}" class="card-img-top" alt="">
+    <div class="card-body">
+        <h5 class="card-title">{{ menu.title }}</h5>
+        <p class="card-text">{{ menu.location }}</p>
+        <p class="card-text">{{ menu.price }}원</p>
+        <p class="card-text">
+                <div><small class="text-muted"> {{ avg }} / 5 </small></div>
+                {% with ''|center:avg_star.0 as range %}
+                {% for _ in range %}
+                    <i class="text-warning fas fa-star"></i>
+                {% endfor %}
+                {% endwith %}
+        
+                {% with ''|center:avg_star.1 as range %}
+                {% for _ in range %}
+                    <i class="text-warning fas fa-star-half-alt"></i>
+                {% endfor %}
+                {% endwith %}
+        
+                {% with ''|center:avg_star.2 as range %}
+                {% for _ in range %}
+                    <i class="text-warning far fa-star"></i>
+                {% endfor %}
+                {% endwith %}
+        </p>
+    </div>
+    {% if reviews|length == 0 %}
+    <a href="/home/upload/?date={{ params.0 }}&res={{ params.1 }}&menu={{ params.2 }}" class="btn btn-light btn-block border-primary">첫번째로 리뷰 작성하기
+        <span class="badge badge-warning">+150p</span>
+    </a>
+    <button class="btn btn-light border-dark btn-block" type="button" data-toggle="collapse" data-target="#reviews" aria-controls="reviews" disabled>리뷰 보기
+    {% else %}
+    <a href="/home/upload/?date={{ params.0 }}&res={{ params.1 }}&menu={{ params.2 }}" class="btn btn-light btn-block border-primary">리뷰 작성하기 
+        <span class="badge badge-warning">+100p</span>
+    </a>
+    <button class="btn btn-light border-dark btn-block" type="button" data-toggle="collapse" data-target="#reviews" aria-controls="reviews">리뷰 보기
+    {% endif %}
+        <span class="badge badge-dark">{{ reviews|length }}</span>
+    </button>
+</div>
+
+<div class="card-groups collapse" id="reviews">
+    {% for review in reviews %}
+    <div class="card my-1 mx-2">
+        <div class="card-header">
+            <h6><span class="badge badge-dark">lv.{{ review.author.rank }}</span> {{review.author.name}}</h6>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                    <div>
+                        {% with ''|center:review.star as range %}
+                        {% for _ in range %}
+                            <i class="text-warning fas fa-star"></i>
+                        {% endfor %}
+                        {% endwith %}
+                        {% if review.star == 0 %}
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                        {% elif review.star == 1%}
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                        {% elif review.star == 2%}
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                        {% elif review.star == 3%}
+                            <i class="text-warning far fa-star"></i>
+                            <i class="text-warning far fa-star"></i>
+                        {% elif review.star == 4%}
+                            <i class="text-warning far fa-star"></i>
+                        {% endif %}
+
+                    </div>
+                    <span>{{review.comment}}</span>
+                    {% if review.photo != 'photos/no_image.png' %}    
+                            <span>
+                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#rid{{review.rid}}image" aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="far fa-image"></i>
+                                </button>
+                            </span>
+                                   
+                    
+
+                    <div class="collapse" id="rid{{review.rid}}image">
+                        <img src="{{ review.photo.url }}" alt="" style="max-height: 200px;">
+                    </div>
+                    {% endif %}
+                <footer class="blockquote-footer"><cite>{{ review.created }}</cite></footer>
+            </blockquote>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock %}
